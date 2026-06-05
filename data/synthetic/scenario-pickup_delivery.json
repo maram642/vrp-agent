@@ -1,0 +1,976 @@
+{
+  "scenario": "VRPPD",
+  "description": "VRP Pickup & Delivery - 40 paires de commandes, 10 véhicules, Tunis. Chaque commande a un point de ramassage (pickup) et un point de livraison (delivery). Le véhicule doit passer par le pickup AVANT le delivery.",
+  "depot": {
+    "id": "depot_0",
+    "name": "Plateforme Logistique Tunis-Nord",
+    "lat": 36.8065,
+    "lng": 10.1815,
+    "opening_time": "06:00",
+    "closing_time": "20:00"
+  },
+  "vehicles": [
+    {
+      "id": "v1",
+      "name": "Camion PD 1",
+      "capacity": 500,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v2",
+      "name": "Camion PD 2",
+      "capacity": 500,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v3",
+      "name": "Camion PD 3",
+      "capacity": 500,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v4",
+      "name": "Camion PD 4",
+      "capacity": 500,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v5",
+      "name": "Camion PD 5",
+      "capacity": 500,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v6",
+      "name": "Camion Frigo PD 1",
+      "capacity": 350,
+      "type": "refrigerated",
+      "max_route_duration_h": 8
+    },
+    {
+      "id": "v7",
+      "name": "Camion Frigo PD 2",
+      "capacity": 350,
+      "type": "refrigerated",
+      "max_route_duration_h": 8
+    },
+    {
+      "id": "v8",
+      "name": "Camion Frigo PD 3",
+      "capacity": 350,
+      "type": "refrigerated",
+      "max_route_duration_h": 8
+    },
+    {
+      "id": "v9",
+      "name": "Utilitaire PD 1",
+      "capacity": 250,
+      "type": "light",
+      "max_route_duration_h": 7
+    },
+    {
+      "id": "v10",
+      "name": "Utilitaire PD 2",
+      "capacity": 250,
+      "type": "light",
+      "max_route_duration_h": 7
+    }
+  ],
+  "pairs": [
+    {
+      "id": "pair_01",
+      "description": "Transfert marchandises port → entrepôt client",
+      "requires_refrigeration": false,
+      "weight": 120,
+      "pickup": {
+        "id": "p01_pickup",
+        "client": "Port_Radès",
+        "lat": 36.7670,
+        "lng": 10.2762,
+        "time_window": { "start": "07:00", "end": "10:00" },
+        "service_time_min": 30
+      },
+      "delivery": {
+        "id": "p01_delivery",
+        "client": "Entrepôt_ElMenzah",
+        "lat": 36.8432,
+        "lng": 10.1924,
+        "time_window": { "start": "10:00", "end": "14:00" },
+        "service_time_min": 20
+      }
+    },
+    {
+      "id": "pair_02",
+      "description": "Transfert produits frais marché → supermarché",
+      "requires_refrigeration": true,
+      "weight": 85,
+      "pickup": {
+        "id": "p02_pickup",
+        "client": "Marché_Central_Tunis",
+        "lat": 36.7985,
+        "lng": 10.1654,
+        "time_window": { "start": "06:00", "end": "08:00" },
+        "service_time_min": 25
+      },
+      "delivery": {
+        "id": "p02_delivery",
+        "client": "Supermarché_LaMarsa",
+        "lat": 36.8875,
+        "lng": 10.3214,
+        "time_window": { "start": "09:00", "end": "12:00" },
+        "service_time_min": 20
+      }
+    },
+    {
+      "id": "pair_03",
+      "description": "Retour matériel usine → atelier réparation",
+      "requires_refrigeration": false,
+      "weight": 200,
+      "pickup": {
+        "id": "p03_pickup",
+        "client": "Usine_BenArous",
+        "lat": 36.7432,
+        "lng": 10.2234,
+        "time_window": { "start": "08:00", "end": "11:00" },
+        "service_time_min": 45
+      },
+      "delivery": {
+        "id": "p03_delivery",
+        "client": "Atelier_Ariana",
+        "lat": 36.8672,
+        "lng": 10.1946,
+        "time_window": { "start": "12:00", "end": "16:00" },
+        "service_time_min": 30
+      }
+    },
+    {
+      "id": "pair_04",
+      "description": "Médicaments laboratoire → clinique",
+      "requires_refrigeration": true,
+      "weight": 45,
+      "pickup": {
+        "id": "p04_pickup",
+        "client": "Laboratoire_Pharma_Cité",
+        "lat": 36.8234,
+        "lng": 10.1543,
+        "time_window": { "start": "07:00", "end": "09:00" },
+        "service_time_min": 20
+      },
+      "delivery": {
+        "id": "p04_delivery",
+        "client": "Clinique_Ennasr",
+        "lat": 36.8589,
+        "lng": 10.2012,
+        "time_window": { "start": "09:30", "end": "12:00" },
+        "service_time_min": 15
+      }
+    },
+    {
+      "id": "pair_05",
+      "description": "Colis e-commerce entrepôt → domicile client",
+      "requires_refrigeration": false,
+      "weight": 18,
+      "pickup": {
+        "id": "p05_pickup",
+        "client": "Entrepôt_Ecommerce_Charguia",
+        "lat": 36.8312,
+        "lng": 10.2231,
+        "time_window": { "start": "08:00", "end": "10:00" },
+        "service_time_min": 10
+      },
+      "delivery": {
+        "id": "p05_delivery",
+        "client": "Résidence_Soukra",
+        "lat": 36.8756,
+        "lng": 10.2543,
+        "time_window": { "start": "10:30", "end": "14:00" },
+        "service_time_min": 10
+      }
+    },
+    {
+      "id": "pair_06",
+      "description": "Matières premières fournisseur → imprimerie",
+      "requires_refrigeration": false,
+      "weight": 310,
+      "pickup": {
+        "id": "p06_pickup",
+        "client": "Fournisseur_Papier_Bir_Bou_Rekba",
+        "lat": 36.7124,
+        "lng": 10.0892,
+        "time_window": { "start": "07:30", "end": "10:00" },
+        "service_time_min": 40
+      },
+      "delivery": {
+        "id": "p06_delivery",
+        "client": "Imprimerie_Centre_Tunis",
+        "lat": 36.8021,
+        "lng": 10.1798,
+        "time_window": { "start": "11:00", "end": "14:00" },
+        "service_time_min": 30
+      }
+    },
+    {
+      "id": "pair_07",
+      "description": "Équipements informatiques import → entreprise",
+      "requires_refrigeration": false,
+      "weight": 95,
+      "pickup": {
+        "id": "p07_pickup",
+        "client": "Zone_Franche_Bizerte_Quai",
+        "lat": 36.7895,
+        "lng": 10.2987,
+        "time_window": { "start": "09:00", "end": "12:00" },
+        "service_time_min": 30
+      },
+      "delivery": {
+        "id": "p07_delivery",
+        "client": "Entreprise_Tech_LacII",
+        "lat": 36.8345,
+        "lng": 10.2312,
+        "time_window": { "start": "13:00", "end": "16:00" },
+        "service_time_min": 20
+      }
+    },
+    {
+      "id": "pair_08",
+      "description": "Produits laitiers ferme → grande surface",
+      "requires_refrigeration": true,
+      "weight": 130,
+      "pickup": {
+        "id": "p08_pickup",
+        "client": "Ferme_Laitière_Mornag",
+        "lat": 36.7234,
+        "lng": 10.1965,
+        "time_window": { "start": "05:30", "end": "07:30" },
+        "service_time_min": 30
+      },
+      "delivery": {
+        "id": "p08_delivery",
+        "client": "Carrefour_Montplaisir",
+        "lat": 36.8054,
+        "lng": 10.1923,
+        "time_window": { "start": "08:00", "end": "10:00" },
+        "service_time_min": 25
+      }
+    },
+    {
+      "id": "pair_09",
+      "description": "Déchets industriels usine → centre traitement",
+      "requires_refrigeration": false,
+      "weight": 420,
+      "pickup": {
+        "id": "p09_pickup",
+        "client": "Usine_Chimique_Gabes_Route",
+        "lat": 36.7543,
+        "lng": 10.2654,
+        "time_window": { "start": "08:00", "end": "11:00" },
+        "service_time_min": 60
+      },
+      "delivery": {
+        "id": "p09_delivery",
+        "client": "Centre_Traitement_Déchets_Jebel",
+        "lat": 36.7012,
+        "lng": 10.1123,
+        "time_window": { "start": "13:00", "end": "17:00" },
+        "service_time_min": 45
+      }
+    },
+    {
+      "id": "pair_10",
+      "description": "Fleurs marché aux fleurs → hôtel",
+      "requires_refrigeration": true,
+      "weight": 25,
+      "pickup": {
+        "id": "p10_pickup",
+        "client": "Marché_Fleurs_Bab_Souika",
+        "lat": 36.8123,
+        "lng": 10.1712,
+        "time_window": { "start": "06:00", "end": "08:00" },
+        "service_time_min": 15
+      },
+      "delivery": {
+        "id": "p10_delivery",
+        "client": "Hôtel_Four_Seasons_Gammarth",
+        "lat": 36.9123,
+        "lng": 10.2834,
+        "time_window": { "start": "09:00", "end": "11:00" },
+        "service_time_min": 20
+      }
+    },
+    {
+      "id": "pair_11",
+      "description": "Mobilier showroom → client particulier",
+      "requires_refrigeration": false,
+      "weight": 280,
+      "pickup": {
+        "id": "p11_pickup",
+        "client": "Showroom_Meubles_Ariana",
+        "lat": 36.8612,
+        "lng": 10.1756,
+        "time_window": { "start": "09:00", "end": "12:00" },
+        "service_time_min": 45
+      },
+      "delivery": {
+        "id": "p11_delivery",
+        "client": "Villa_Sidi_Bousaid",
+        "lat": 36.8701,
+        "lng": 10.3412,
+        "time_window": { "start": "14:00", "end": "18:00" },
+        "service_time_min": 60
+      }
+    },
+    {
+      "id": "pair_12",
+      "description": "Produits pharmaceutiques grossiste → pharmacies",
+      "requires_refrigeration": true,
+      "weight": 60,
+      "pickup": {
+        "id": "p12_pickup",
+        "client": "Grossiste_Pharma_Charguia",
+        "lat": 36.8401,
+        "lng": 10.2198,
+        "time_window": { "start": "07:00", "end": "09:00" },
+        "service_time_min": 25
+      },
+      "delivery": {
+        "id": "p12_delivery",
+        "client": "Pharmacie_Centrale_Sfax_Rte",
+        "lat": 36.7823,
+        "lng": 10.1434,
+        "time_window": { "start": "10:00", "end": "13:00" },
+        "service_time_min": 15
+      }
+    },
+    {
+      "id": "pair_13",
+      "description": "Matériaux construction → chantier",
+      "requires_refrigeration": false,
+      "weight": 480,
+      "pickup": {
+        "id": "p13_pickup",
+        "client": "Carrière_Matériaux_Zaghouan",
+        "lat": 36.7089,
+        "lng": 10.1567,
+        "time_window": { "start": "07:00", "end": "10:00" },
+        "service_time_min": 50
+      },
+      "delivery": {
+        "id": "p13_delivery",
+        "client": "Chantier_Résidence_Ennasr2",
+        "lat": 36.8634,
+        "lng": 10.2145,
+        "time_window": { "start": "12:00", "end": "16:00" },
+        "service_time_min": 40
+      }
+    },
+    {
+      "id": "pair_14",
+      "description": "Vêtements atelier confection → boutique",
+      "requires_refrigeration": false,
+      "weight": 55,
+      "pickup": {
+        "id": "p14_pickup",
+        "client": "Atelier_Confection_Manouba",
+        "lat": 36.8089,
+        "lng": 10.0934,
+        "time_window": { "start": "08:30", "end": "11:00" },
+        "service_time_min": 20
+      },
+      "delivery": {
+        "id": "p14_delivery",
+        "client": "Boutique_Mode_Lac1",
+        "lat": 36.8312,
+        "lng": 10.2298,
+        "time_window": { "start": "12:00", "end": "15:00" },
+        "service_time_min": 15
+      }
+    },
+    {
+      "id": "pair_15",
+      "description": "Poissons criée → restaurant",
+      "requires_refrigeration": true,
+      "weight": 70,
+      "pickup": {
+        "id": "p15_pickup",
+        "client": "Criée_Poissons_LaGoulette",
+        "lat": 36.8187,
+        "lng": 10.3076,
+        "time_window": { "start": "05:00", "end": "07:00" },
+        "service_time_min": 20
+      },
+      "delivery": {
+        "id": "p15_delivery",
+        "client": "Restaurant_Gastronomique_Sidi_Bou",
+        "lat": 36.8702,
+        "lng": 10.3389,
+        "time_window": { "start": "08:00", "end": "10:00" },
+        "service_time_min": 15
+      }
+    },
+    {
+      "id": "pair_16",
+      "description": "Pièces auto entrepôt → garage",
+      "requires_refrigeration": false,
+      "weight": 145,
+      "pickup": {
+        "id": "p16_pickup",
+        "client": "Entrepôt_Pièces_Auto_Ben_Arous",
+        "lat": 36.7512,
+        "lng": 10.2312,
+        "time_window": { "start": "08:00", "end": "11:00" },
+        "service_time_min": 30
+      },
+      "delivery": {
+        "id": "p16_delivery",
+        "client": "Garage_Mécanique_Bardo",
+        "lat": 36.8089,
+        "lng": 10.1356,
+        "time_window": { "start": "12:00", "end": "15:00" },
+        "service_time_min": 20
+      }
+    },
+    {
+      "id": "pair_17",
+      "description": "Équipements médicaux import → hôpital",
+      "requires_refrigeration": false,
+      "weight": 175,
+      "pickup": {
+        "id": "p17_pickup",
+        "client": "Transitaire_Aéroport_Tunis",
+        "lat": 36.8512,
+        "lng": 10.2287,
+        "time_window": { "start": "09:00", "end": "12:00" },
+        "service_time_min": 45
+      },
+      "delivery": {
+        "id": "p17_delivery",
+        "client": "Hôpital_Charles_Nicolle",
+        "lat": 36.7923,
+        "lng": 10.1756,
+        "time_window": { "start": "13:00", "end": "16:00" },
+        "service_time_min": 30
+      }
+    },
+    {
+      "id": "pair_18",
+      "description": "Produits bio ferme → épicerie fine",
+      "requires_refrigeration": true,
+      "weight": 40,
+      "pickup": {
+        "id": "p18_pickup",
+        "client": "Ferme_Bio_Nabeul_Rte",
+        "lat": 36.7234,
+        "lng": 10.2934,
+        "time_window": { "start": "06:30", "end": "09:00" },
+        "service_time_min": 20
+      },
+      "delivery": {
+        "id": "p18_delivery",
+        "client": "Épicerie_Fine_Mutuelleville",
+        "lat": 36.8156,
+        "lng": 10.1889,
+        "time_window": { "start": "10:00", "end": "13:00" },
+        "service_time_min": 15
+      }
+    },
+    {
+      "id": "pair_19",
+      "description": "Documents bancaires agence → siège",
+      "requires_refrigeration": false,
+      "weight": 8,
+      "pickup": {
+        "id": "p19_pickup",
+        "client": "Agence_BNA_Sfax_Ave",
+        "lat": 36.7834,
+        "lng": 10.1123,
+        "time_window": { "start": "09:00", "end": "11:00" },
+        "service_time_min": 10
+      },
+      "delivery": {
+        "id": "p19_delivery",
+        "client": "Siège_BNA_Mohamed_V",
+        "lat": 36.8012,
+        "lng": 10.1823,
+        "time_window": { "start": "11:30", "end": "14:00" },
+        "service_time_min": 10
+      }
+    },
+    {
+      "id": "pair_20",
+      "description": "Carburant dépôt → station-service",
+      "requires_refrigeration": false,
+      "weight": 450,
+      "pickup": {
+        "id": "p20_pickup",
+        "client": "Dépôt_Pétrolier_Bizerte_Rte",
+        "lat": 36.8934,
+        "lng": 10.1234,
+        "time_window": { "start": "07:00", "end": "09:00" },
+        "service_time_min": 40
+      },
+      "delivery": {
+        "id": "p20_delivery",
+        "client": "Station_Total_Lac2",
+        "lat": 36.8423,
+        "lng": 10.2567,
+        "time_window": { "start": "10:00", "end": "13:00" },
+        "service_time_min": 30
+      }
+    },
+    {
+      "id": "pair_21",
+      "description": "Électroménager importateur → magasin",
+      "requires_refrigeration": false,
+      "weight": 220,
+      "pickup": {
+        "id": "p21_pickup",
+        "client": "Importateur_Électro_Charguia2",
+        "lat": 36.8456,
+        "lng": 10.2134,
+        "time_window": { "start": "08:00", "end": "11:00" },
+        "service_time_min": 35
+      },
+      "delivery": {
+        "id": "p21_delivery",
+        "client": "Magasin_Electroplanet_Tunis",
+        "lat": 36.8123,
+        "lng": 10.1765,
+        "time_window": { "start": "12:00", "end": "15:00" },
+        "service_time_min": 25
+      }
+    },
+    {
+      "id": "pair_22",
+      "description": "Fruits exotiques import → hôtel 5 étoiles",
+      "requires_refrigeration": true,
+      "weight": 35,
+      "pickup": {
+        "id": "p22_pickup",
+        "client": "Grossiste_Fruits_Bir_ElBey",
+        "lat": 36.7712,
+        "lng": 10.2189,
+        "time_window": { "start": "05:30", "end": "07:30" },
+        "service_time_min": 20
+      },
+      "delivery": {
+        "id": "p22_delivery",
+        "client": "Hôtel_Laico_Tunis",
+        "lat": 36.8234,
+        "lng": 10.1923,
+        "time_window": { "start": "08:30", "end": "10:30" },
+        "service_time_min": 15
+      }
+    },
+    {
+      "id": "pair_23",
+      "description": "Câbles électriques grossiste → électricien",
+      "requires_refrigeration": false,
+      "weight": 165,
+      "pickup": {
+        "id": "p23_pickup",
+        "client": "Grossiste_Matériel_Électrique_Manouba",
+        "lat": 36.8023,
+        "lng": 10.0876,
+        "time_window": { "start": "08:00", "end": "11:00" },
+        "service_time_min": 30
+      },
+      "delivery": {
+        "id": "p23_delivery",
+        "client": "Chantier_Électricité_Cité_Sportive",
+        "lat": 36.8156,
+        "lng": 10.2045,
+        "time_window": { "start": "12:00", "end": "15:00" },
+        "service_time_min": 25
+      }
+    },
+    {
+      "id": "pair_24",
+      "description": "Vaccins chaîne du froid → centre santé",
+      "requires_refrigeration": true,
+      "weight": 15,
+      "pickup": {
+        "id": "p24_pickup",
+        "client": "Direction_Pharmacie_Ministère_Santé",
+        "lat": 36.7956,
+        "lng": 10.1812,
+        "time_window": { "start": "07:00", "end": "09:00" },
+        "service_time_min": 15
+      },
+      "delivery": {
+        "id": "p24_delivery",
+        "client": "Centre_Santé_Oued_Ellil",
+        "lat": 36.7834,
+        "lng": 10.0634,
+        "time_window": { "start": "09:30", "end": "12:00" },
+        "service_time_min": 20
+      }
+    },
+    {
+      "id": "pair_25",
+      "description": "Pneus distributeur → vulcanisateur",
+      "requires_refrigeration": false,
+      "weight": 190,
+      "pickup": {
+        "id": "p25_pickup",
+        "client": "Distributeur_Pneus_Jebel_Jelloud",
+        "lat": 36.7623,
+        "lng": 10.2534,
+        "time_window": { "start": "08:30", "end": "11:30" },
+        "service_time_min": 35
+      },
+      "delivery": {
+        "id": "p25_delivery",
+        "client": "Centre_Auto_Hammam_Lif",
+        "lat": 36.7234,
+        "lng": 10.3234,
+        "time_window": { "start": "13:00", "end": "16:00" },
+        "service_time_min": 25
+      }
+    },
+    {
+      "id": "pair_26",
+      "description": "Livres imprimeur → librairies",
+      "requires_refrigeration": false,
+      "weight": 75,
+      "pickup": {
+        "id": "p26_pickup",
+        "client": "Imprimerie_Cérès_Bardo",
+        "lat": 36.8067,
+        "lng": 10.1312,
+        "time_window": { "start": "09:00", "end": "12:00" },
+        "service_time_min": 20
+      },
+      "delivery": {
+        "id": "p26_delivery",
+        "client": "Librairie_Clairefontaine_Centre",
+        "lat": 36.8012,
+        "lng": 10.1834,
+        "time_window": { "start": "13:00", "end": "16:00" },
+        "service_time_min": 15
+      }
+    },
+    {
+      "id": "pair_27",
+      "description": "Glaces artisanales laboratoire → cafés",
+      "requires_refrigeration": true,
+      "weight": 55,
+      "pickup": {
+        "id": "p27_pickup",
+        "client": "Laboratoire_Glaces_Maxim",
+        "lat": 36.8234,
+        "lng": 10.1623,
+        "time_window": { "start": "06:00", "end": "08:00" },
+        "service_time_min": 20
+      },
+      "delivery": {
+        "id": "p27_delivery",
+        "client": "Chaîne_Café_Almaz_Marsa",
+        "lat": 36.8889,
+        "lng": 10.3178,
+        "time_window": { "start": "09:00", "end": "11:00" },
+        "service_time_min": 15
+      }
+    },
+    {
+      "id": "pair_28",
+      "description": "Bouteilles gaz industriel → atelier soudure",
+      "requires_refrigeration": false,
+      "weight": 320,
+      "pickup": {
+        "id": "p28_pickup",
+        "client": "Dépôt_Gaz_STIR_Tunis",
+        "lat": 36.7889,
+        "lng": 10.2845,
+        "time_window": { "start": "08:00", "end": "11:00" },
+        "service_time_min": 40
+      },
+      "delivery": {
+        "id": "p28_delivery",
+        "client": "Atelier_Soudure_Industrielle_Megrine",
+        "lat": 36.7423,
+        "lng": 10.2198,
+        "time_window": { "start": "12:00", "end": "15:00" },
+        "service_time_min": 30
+      }
+    },
+    {
+      "id": "pair_29",
+      "description": "Céramique usine → showroom",
+      "requires_refrigeration": false,
+      "weight": 260,
+      "pickup": {
+        "id": "p29_pickup",
+        "client": "Usine_Céramique_Tunis",
+        "lat": 36.7345,
+        "lng": 10.1234,
+        "time_window": { "start": "07:30", "end": "10:30" },
+        "service_time_min": 45
+      },
+      "delivery": {
+        "id": "p29_delivery",
+        "client": "Showroom_Bâtiment_Lac1",
+        "lat": 36.8323,
+        "lng": 10.2312,
+        "time_window": { "start": "12:00", "end": "15:00" },
+        "service_time_min": 30
+      }
+    },
+    {
+      "id": "pair_30",
+      "description": "Matériel informatique réparé → client",
+      "requires_refrigeration": false,
+      "weight": 12,
+      "pickup": {
+        "id": "p30_pickup",
+        "client": "Centre_Réparation_PC_Montfleury",
+        "lat": 36.8156,
+        "lng": 10.1756,
+        "time_window": { "start": "10:00", "end": "13:00" },
+        "service_time_min": 10
+      },
+      "delivery": {
+        "id": "p30_delivery",
+        "client": "Entreprise_Client_ElKhadra",
+        "lat": 36.8234,
+        "lng": 10.1889,
+        "time_window": { "start": "14:00", "end": "17:00" },
+        "service_time_min": 10
+      }
+    },
+    {
+      "id": "pair_31",
+      "description": "Agrumes ferme → usine jus",
+      "requires_refrigeration": false,
+      "weight": 380,
+      "pickup": {
+        "id": "p31_pickup",
+        "client": "Ferme_Agrumes_Cap_Bon_Rte",
+        "lat": 36.7056,
+        "lng": 10.2678,
+        "time_window": { "start": "06:00", "end": "09:00" },
+        "service_time_min": 50
+      },
+      "delivery": {
+        "id": "p31_delivery",
+        "client": "Usine_Jus_SOPROFEL",
+        "lat": 36.7678,
+        "lng": 10.2123,
+        "time_window": { "start": "10:00", "end": "14:00" },
+        "service_time_min": 40
+      }
+    },
+    {
+      "id": "pair_32",
+      "description": "Équipements sport importateur → magasin",
+      "requires_refrigeration": false,
+      "weight": 110,
+      "pickup": {
+        "id": "p32_pickup",
+        "client": "Importateur_Sport_Zone_Franche",
+        "lat": 36.8512,
+        "lng": 10.2456,
+        "time_window": { "start": "09:00", "end": "12:00" },
+        "service_time_min": 30
+      },
+      "delivery": {
+        "id": "p32_delivery",
+        "client": "Sport_Discount_Belvédère",
+        "lat": 36.8234,
+        "lng": 10.1712,
+        "time_window": { "start": "13:00", "end": "16:00" },
+        "service_time_min": 20
+      }
+    },
+    {
+      "id": "pair_33",
+      "description": "Sang et prélèvements hôpital → labo analyse",
+      "requires_refrigeration": true,
+      "weight": 5,
+      "pickup": {
+        "id": "p33_pickup",
+        "client": "Hôpital_Habib_Thameur",
+        "lat": 36.8023,
+        "lng": 10.1923,
+        "time_window": { "start": "07:00", "end": "09:00" },
+        "service_time_min": 15
+      },
+      "delivery": {
+        "id": "p33_delivery",
+        "client": "Laboratoire_Analyses_Pasteur",
+        "lat": 36.8145,
+        "lng": 10.1689,
+        "time_window": { "start": "09:30", "end": "11:00" },
+        "service_time_min": 10
+      }
+    },
+    {
+      "id": "pair_34",
+      "description": "Conserves alimentaires usine → grossiste",
+      "requires_refrigeration": false,
+      "weight": 290,
+      "pickup": {
+        "id": "p34_pickup",
+        "client": "Usine_Conserves_Sfax_Rte",
+        "lat": 36.7189,
+        "lng": 10.1789,
+        "time_window": { "start": "08:00", "end": "11:00" },
+        "service_time_min": 40
+      },
+      "delivery": {
+        "id": "p34_delivery",
+        "client": "Grossiste_Alimentaire_Jebel_Jelloud",
+        "lat": 36.7623,
+        "lng": 10.2534,
+        "time_window": { "start": "12:00", "end": "15:00" },
+        "service_time_min": 30
+      }
+    },
+    {
+      "id": "pair_35",
+      "description": "Matériel optique fabricant → opticiens",
+      "requires_refrigeration": false,
+      "weight": 22,
+      "pickup": {
+        "id": "p35_pickup",
+        "client": "Fabricant_Lunettes_Sousse_Rte",
+        "lat": 36.7456,
+        "lng": 10.1534,
+        "time_window": { "start": "09:00", "end": "12:00" },
+        "service_time_min": 15
+      },
+      "delivery": {
+        "id": "p35_delivery",
+        "client": "Opticien_Massour_Bourguiba",
+        "lat": 36.7989,
+        "lng": 10.1823,
+        "time_window": { "start": "13:00", "end": "16:00" },
+        "service_time_min": 10
+      }
+    },
+    {
+      "id": "pair_36",
+      "description": "Outillage loué → retour dépôt location",
+      "requires_refrigeration": false,
+      "weight": 155,
+      "pickup": {
+        "id": "p36_pickup",
+        "client": "Chantier_BTP_Ain_Zaghouan",
+        "lat": 36.7834,
+        "lng": 10.0723,
+        "time_window": { "start": "08:00", "end": "11:00" },
+        "service_time_min": 30
+      },
+      "delivery": {
+        "id": "p36_delivery",
+        "client": "Location_Outillage_Manouba",
+        "lat": 36.8089,
+        "lng": 10.1023,
+        "time_window": { "start": "12:00", "end": "15:00" },
+        "service_time_min": 20
+      }
+    },
+    {
+      "id": "pair_37",
+      "description": "Pâtisseries laboratoire → hôtels et cafés",
+      "requires_refrigeration": true,
+      "weight": 48,
+      "pickup": {
+        "id": "p37_pickup",
+        "client": "Laboratoire_Pâtisserie_Hammam",
+        "lat": 36.8312,
+        "lng": 10.1456,
+        "time_window": { "start": "05:00", "end": "07:00" },
+        "service_time_min": 20
+      },
+      "delivery": {
+        "id": "p37_delivery",
+        "client": "Hôtel_Regency_Tunis",
+        "lat": 36.8567,
+        "lng": 10.2134,
+        "time_window": { "start": "08:00", "end": "10:00" },
+        "service_time_min": 15
+      }
+    },
+    {
+      "id": "pair_38",
+      "description": "Textile importé → ateliers confection",
+      "requires_refrigeration": false,
+      "weight": 215,
+      "pickup": {
+        "id": "p38_pickup",
+        "client": "Entrepôt_Textile_Import_Radès",
+        "lat": 36.7723,
+        "lng": 10.2834,
+        "time_window": { "start": "08:00", "end": "11:00" },
+        "service_time_min": 35
+      },
+      "delivery": {
+        "id": "p38_delivery",
+        "client": "Atelier_Confection_Grombalia_Rte",
+        "lat": 36.7312,
+        "lng": 10.1923,
+        "time_window": { "start": "12:00", "end": "15:00" },
+        "service_time_min": 30
+      }
+    },
+    {
+      "id": "pair_39",
+      "description": "Huile d'olive coopérative → exportateur",
+      "requires_refrigeration": false,
+      "weight": 340,
+      "pickup": {
+        "id": "p39_pickup",
+        "client": "Coopérative_Oleicole_Béja_Rte",
+        "lat": 36.7156,
+        "lng": 10.0834,
+        "time_window": { "start": "07:00", "end": "10:00" },
+        "service_time_min": 45
+      },
+      "delivery": {
+        "id": "p39_delivery",
+        "client": "Exportateur_Huile_Zone_Franche",
+        "lat": 36.8534,
+        "lng": 10.2212,
+        "time_window": { "start": "12:00", "end": "16:00" },
+        "service_time_min": 35
+      }
+    },
+    {
+      "id": "pair_40",
+      "description": "Produits chimiques laboratoire → industrie",
+      "requires_refrigeration": false,
+      "weight": 195,
+      "pickup": {
+        "id": "p40_pickup",
+        "client": "Fournisseur_Produits_Chimiques_Gabes",
+        "lat": 36.7634,
+        "lng": 10.2934,
+        "time_window": { "start": "08:30", "end": "11:30" },
+        "service_time_min": 35
+      },
+      "delivery": {
+        "id": "p40_delivery",
+        "client": "Usine_Industrie_Chimique_Mghira",
+        "lat": 36.7156,
+        "lng": 10.1656,
+        "time_window": { "start": "13:00", "end": "16:00" },
+        "service_time_min": 30
+      }
+    }
+  ],
+  "notes": {
+    "constraint_pickup_before_delivery": "Le véhicule DOIT visiter le nœud pickup AVANT le nœud delivery pour chaque paire.",
+    "constraint_same_vehicle": "Le pickup et le delivery d'une même paire DOIVENT être effectués par le même véhicule.",
+    "constraint_capacity": "La charge du véhicule ne doit jamais dépasser sa capacité. Elle augmente au pickup et diminue au delivery.",
+    "constraint_refrigeration": "Les paires avec requires_refrigeration=true doivent être assignées à un véhicule de type 'refrigerated'.",
+    "nb_pairs": 40,
+    "total_weight_all_pairs": 6312,
+    "fleet_capacity_total": 4700,
+    "note_capacity": "Avec 40 paires simultanées impossibles à toutes charger — le solver doit optimiser l'ordre pour gérer la capacité dynamique (montée au pickup, descente au delivery)."
+  }
+}

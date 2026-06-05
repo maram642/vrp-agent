@@ -1,0 +1,135 @@
+
+
+
+"""#test multidepots
+from core.preprocessing.cleaner        import load_and_clean
+from core.classification.vrp_classifier import classify
+from core.constraints.constraint_manager import build_constraints
+from core.solvers.vrp_solver            import solve
+
+data    = load_and_clean("data/synthetic/scenario_multidepot")
+profile = classify(data)
+config  = build_constraints(profile, data)
+result  = solve(data, config)
+
+print(f"Routes : {len(result['routes'])}")
+print(f"Livrées: {result['nb_orders']} / 30")
+for route in result["routes"]:
+    print(f"\n🚛 {route['vehicle_id']} ({route['vehicle_type']}) "
+          f"— départ : {route.get('depot_id', '?')}")
+    print(f"   Stops    : {route['nb_stops']}")
+    print(f"   Poids    : {route['total_weight_kg']} kg")
+    print(f"   Distance : {route['total_distance_km']} km")
+    for stop in route["stops"]:
+        print(f"   → {stop['client']} ({stop['weight_kg']} kg)")
+
+# vérification dépôts
+print(f"\n══ VÉRIFICATION DÉPÔTS ══")
+depot_usage = {}
+for route in result["routes"]:
+    dep = route.get("depot_id", "?")
+    depot_usage.setdefault(dep, []).append(route["vehicle_id"])
+for depot_id, vehicles in depot_usage.items():
+    print(f"  🏭 {depot_id} → {vehicles}")"""
+
+
+
+
+
+    #test simple
+
+from core.preprocessing.cleaner import load_and_clean
+from core.classification.vrp_classifier import classify
+from core.constraints.constraint_manager import build_constraints
+from core.solvers.vrp_solver import solve
+
+# ── test sur scenario_simple (15 commandes, 3 véhicules) ──
+data    = load_and_clean("data/synthetic/scenario_timewindows.json")
+profile = classify(data)
+config  = build_constraints(profile, data)
+result  = solve(data, config)
+
+print(f"\n══ RÉSULTAT ══")
+print(f"Routes         : {len(result['routes'])}")
+print(f"Commandes livrées : {result['nb_orders']} / {len(data['orders'])}")
+print(f"Distance totale: {result['total_distance_km']} km")
+print(f"Non livrées    : {result['unserved_orders']}")
+
+print(f"\n══ DÉTAIL DES ROUTES ══")
+for route in result["routes"]:
+    print(f"\n🚛 {route['vehicle_id']} ({route['vehicle_type']})")
+    print(f"   Stops    : {route['nb_stops']}")
+    print(f"   Poids    : {route['total_weight_kg']} kg")
+    print(f"   Distance : {route['total_distance_km']} km")
+    for stop in route["stops"]:
+        print(f"   → {stop['client']} ({stop['weight_kg']} kg)")
+
+
+#test timewindows
+
+print("\n══ VÉRIFICATION TIME WINDOWS ══")
+violations = 0
+
+for route in result["routes"]:
+    for stop in route["stops"]:
+        order_id    = stop["order_id"]
+        arrival_min = stop["arrival_min"]
+
+        # retrouver la commande originale
+        order = next(o for o in data["orders"] if o["id"] == order_id)
+        tw    = order.get("time_window")
+
+        if tw and arrival_min is not None:
+            # convertir HH:MM en minutes
+            start = int(tw["start"].split(":")[0]) * 60 + int(tw["start"].split(":")[1])
+            end   = int(tw["end"].split(":")[0])   * 60 + int(tw["end"].split(":")[1])
+
+            # convertir arrival_min en HH:MM
+            h = arrival_min // 60
+            m = arrival_min % 60
+
+            ok = start <= arrival_min <= end
+            status = "✅" if ok else "❌"
+
+            if not ok:
+                violations += 1
+
+            print(f"  {status} {order['client']:<30} "
+                  f"arrivée {h:02d}:{m:02d} "
+                  f"| fenêtre {tw['start']} → {tw['end']}")
+
+print(f"\n  Total violations : {violations}")   
+
+
+
+
+
+
+
+
+"""#test scenario large
+
+from core.preprocessing.cleaner        import load_and_clean
+from core.classification.vrp_classifier import classify
+from core.strategy.strategy_selector    import run
+
+data    = load_and_clean("data/synthetic/scenario_large.json")
+profile = classify(data)
+
+
+result  = run(data, profile)
+
+print(f"\n══ RÉSULTAT GLOBAL ══")
+print(f"Routes            : {len(result.routes)}")
+print(f"Commandes livrées : {result.meta['nb_orders_solved']}")
+print(f"Distance totale   : {result.meta['total_distance_km']} km")
+print(f"Clusters résolus  : {result.meta['nb_clusters_solved']}")
+
+print(f"\n══ DÉTAIL DES ROUTES ══")
+for route in result.routes:
+    print(f"\n🚛 {route['vehicle_id']} ({route['vehicle_type']})")
+    print(f"   Stops    : {route['nb_stops']}")
+    print(f"   Poids    : {route['total_weight_kg']} kg")
+    print(f"   Distance : {route['total_distance_km']} km")
+    for stop in route["stops"]:
+        print(f"   → {stop['client']} ({stop['weight_kg']} kg)")"""

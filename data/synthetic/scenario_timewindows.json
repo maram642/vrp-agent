@@ -1,0 +1,1400 @@
+{
+  "scenario": "VRPTW",
+  "description": "VRP avec créneaux horaires - 100 commandes, 12 véhicules (6 frigo + 6 standard)",
+  "depot": {
+    "id": "depot_0",
+    "name": "Entrepôt Central Tunis",
+    "lat": 36.8065,
+    "lng": 10.1815,
+    "opening_time": "06:00",
+    "closing_time": "20:00"
+  },
+  "vehicles": [
+    {
+      "id": "v1",
+      "name": "Camion Frigo 1",
+      "capacity": 400,
+      "type": "refrigerated",
+      "max_route_duration_h": 8
+    },
+    {
+      "id": "v2",
+      "name": "Camion Frigo 2",
+      "capacity": 400,
+      "type": "refrigerated",
+      "max_route_duration_h": 8
+    },
+    {
+      "id": "v3",
+      "name": "Camion Frigo 3",
+      "capacity": 400,
+      "type": "refrigerated",
+      "max_route_duration_h": 8
+    },
+    {
+      "id": "v4",
+      "name": "Camion Frigo 4",
+      "capacity": 400,
+      "type": "refrigerated",
+      "max_route_duration_h": 8
+    },
+    {
+      "id": "v5",
+      "name": "Camion Frigo 5",
+      "capacity": 400,
+      "type": "refrigerated",
+      "max_route_duration_h": 8
+    },
+    {
+      "id": "v6",
+      "name": "Camion Frigo 6",
+      "capacity": 400,
+      "type": "refrigerated",
+      "max_route_duration_h": 8
+    },
+    {
+      "id": "v7",
+      "name": "Camion Standard 1",
+      "capacity": 600,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v8",
+      "name": "Camion Standard 2",
+      "capacity": 600,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v9",
+      "name": "Camion Standard 3",
+      "capacity": 600,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v10",
+      "name": "Camion Standard 4",
+      "capacity": 600,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v11",
+      "name": "Camion Standard 5",
+      "capacity": 600,
+      "type": "standard",
+      "max_route_duration_h": 9
+    },
+    {
+      "id": "v12",
+      "name": "Camion Standard 6",
+      "capacity": 600,
+      "type": "standard",
+      "max_route_duration_h": 9
+    }
+  ],
+  "orders": [
+    {
+      "id": "o1",
+      "client": "Magasin_001",
+      "lat": 36.7961,
+      "lng": 10.1729,
+      "weight": 77,
+      "time_window": {
+        "start": "10:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o2",
+      "client": "Boutique_002",
+      "lat": 36.8748,
+      "lng": 10.2724,
+      "weight": 171,
+      "time_window": {
+        "start": "07:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 10
+    },
+    {
+      "id": "o3",
+      "client": "Laboratoire_003",
+      "lat": 36.8141,
+      "lng": 10.2214,
+      "weight": 26,
+      "time_window": {
+        "start": "16:00",
+        "end": "19:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o4",
+      "client": "Marché_004",
+      "lat": 36.7367,
+      "lng": 10.1307,
+      "weight": 170,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 60
+    },
+    {
+      "id": "o5",
+      "client": "Usine_005",
+      "lat": 36.7214,
+      "lng": 10.2607,
+      "weight": 107,
+      "time_window": {
+        "start": "08:30",
+        "end": "10:30"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o6",
+      "client": "Boutique_006",
+      "lat": 36.9206,
+      "lng": 10.2068,
+      "weight": 117,
+      "time_window": {
+        "start": "08:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 20
+    },
+    {
+      "id": "o7",
+      "client": "Marché_007",
+      "lat": 36.7292,
+      "lng": 10.2358,
+      "weight": 157,
+      "time_window": {
+        "start": "07:00",
+        "end": "09:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 25
+    },
+    {
+      "id": "o8",
+      "client": "Agence_008",
+      "lat": 36.8308,
+      "lng": 10.2264,
+      "weight": 69,
+      "time_window": {
+        "start": "12:00",
+        "end": "15:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 10
+    },
+    {
+      "id": "o9",
+      "client": "Magasin_009",
+      "lat": 36.7062,
+      "lng": 10.1189,
+      "weight": 100,
+      "time_window": {
+        "start": "07:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 25
+    },
+    {
+      "id": "o10",
+      "client": "Pharmacie_010",
+      "lat": 36.904,
+      "lng": 10.1642,
+      "weight": 114,
+      "time_window": {
+        "start": "12:00",
+        "end": "15:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o11",
+      "client": "Laboratoire_011",
+      "lat": 36.7116,
+      "lng": 10.1295,
+      "weight": 100,
+      "time_window": {
+        "start": "07:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 30
+    },
+    {
+      "id": "o12",
+      "client": "Entrepôt_012",
+      "lat": 36.7739,
+      "lng": 10.1772,
+      "weight": 183,
+      "time_window": {
+        "start": "13:00",
+        "end": "16:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o13",
+      "client": "Magasin_013",
+      "lat": 36.9115,
+      "lng": 10.1286,
+      "weight": 50,
+      "time_window": {
+        "start": "07:00",
+        "end": "09:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 60
+    },
+    {
+      "id": "o14",
+      "client": "Agence_014",
+      "lat": 36.85,
+      "lng": 10.1625,
+      "weight": 244,
+      "time_window": {
+        "start": "09:00",
+        "end": "11:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o15",
+      "client": "Epicerie_015",
+      "lat": 36.7523,
+      "lng": 10.1449,
+      "weight": 87,
+      "time_window": {
+        "start": "14:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 15
+    },
+    {
+      "id": "o16",
+      "client": "Agence_016",
+      "lat": 36.7211,
+      "lng": 10.1788,
+      "weight": 122,
+      "time_window": {
+        "start": "13:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o17",
+      "client": "Boutique_017",
+      "lat": 36.806,
+      "lng": 10.2109,
+      "weight": 213,
+      "time_window": {
+        "start": "15:00",
+        "end": "18:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 60
+    },
+    {
+      "id": "o18",
+      "client": "Laboratoire_018",
+      "lat": 36.8687,
+      "lng": 10.257,
+      "weight": 36,
+      "time_window": {
+        "start": "13:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 25
+    },
+    {
+      "id": "o19",
+      "client": "Studio_019",
+      "lat": 36.7637,
+      "lng": 10.1193,
+      "weight": 240,
+      "time_window": {
+        "start": "10:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o20",
+      "client": "Entrepôt_020",
+      "lat": 36.7028,
+      "lng": 10.1622,
+      "weight": 21,
+      "time_window": {
+        "start": "07:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 10
+    },
+    {
+      "id": "o21",
+      "client": "Entrepôt_021",
+      "lat": 36.8374,
+      "lng": 10.1728,
+      "weight": 148,
+      "time_window": {
+        "start": "06:00",
+        "end": "08:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 30
+    },
+    {
+      "id": "o22",
+      "client": "Atelier_022",
+      "lat": 36.7377,
+      "lng": 10.294,
+      "weight": 175,
+      "time_window": {
+        "start": "10:00",
+        "end": "13:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 15
+    },
+    {
+      "id": "o23",
+      "client": "Supermarché_023",
+      "lat": 36.8297,
+      "lng": 10.1586,
+      "weight": 173,
+      "time_window": {
+        "start": "16:00",
+        "end": "19:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 25
+    },
+    {
+      "id": "o24",
+      "client": "Magasin_024",
+      "lat": 36.8236,
+      "lng": 10.3205,
+      "weight": 34,
+      "time_window": {
+        "start": "10:00",
+        "end": "13:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 30
+    },
+    {
+      "id": "o25",
+      "client": "Boutique_025",
+      "lat": 36.7993,
+      "lng": 10.2023,
+      "weight": 214,
+      "time_window": {
+        "start": "15:00",
+        "end": "18:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 15
+    },
+    {
+      "id": "o26",
+      "client": "Entrepôt_026",
+      "lat": 36.6863,
+      "lng": 10.1049,
+      "weight": 55,
+      "time_window": {
+        "start": "08:30",
+        "end": "10:30"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o27",
+      "client": "Café_027",
+      "lat": 36.7565,
+      "lng": 10.2859,
+      "weight": 22,
+      "time_window": {
+        "start": "09:00",
+        "end": "11:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 25
+    },
+    {
+      "id": "o28",
+      "client": "Magasin_028",
+      "lat": 36.7633,
+      "lng": 10.2406,
+      "weight": 36,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 10
+    },
+    {
+      "id": "o29",
+      "client": "Supermarché_029",
+      "lat": 36.7843,
+      "lng": 10.1456,
+      "weight": 38,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 15
+    },
+    {
+      "id": "o30",
+      "client": "Boutique_030",
+      "lat": 36.8124,
+      "lng": 10.1946,
+      "weight": 151,
+      "time_window": {
+        "start": "11:00",
+        "end": "14:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 20
+    },
+    {
+      "id": "o31",
+      "client": "Agence_031",
+      "lat": 36.7716,
+      "lng": 10.162,
+      "weight": 167,
+      "time_window": {
+        "start": "08:00",
+        "end": "11:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o32",
+      "client": "Hôtel_032",
+      "lat": 36.6864,
+      "lng": 10.2081,
+      "weight": 44,
+      "time_window": {
+        "start": "09:00",
+        "end": "11:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 20
+    },
+    {
+      "id": "o33",
+      "client": "Hôtel_033",
+      "lat": 36.8413,
+      "lng": 10.1146,
+      "weight": 35,
+      "time_window": {
+        "start": "07:00",
+        "end": "09:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 45
+    },
+    {
+      "id": "o34",
+      "client": "Bureau_034",
+      "lat": 36.9171,
+      "lng": 10.112,
+      "weight": 68,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o35",
+      "client": "Boutique_035",
+      "lat": 36.8296,
+      "lng": 10.1383,
+      "weight": 133,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 10
+    },
+    {
+      "id": "o36",
+      "client": "Boutique_036",
+      "lat": 36.7365,
+      "lng": 10.1321,
+      "weight": 212,
+      "time_window": {
+        "start": "06:00",
+        "end": "08:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 15
+    },
+    {
+      "id": "o37",
+      "client": "Restaurant_037",
+      "lat": 36.8494,
+      "lng": 10.1171,
+      "weight": 62,
+      "time_window": {
+        "start": "13:00",
+        "end": "16:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 10
+    },
+    {
+      "id": "o38",
+      "client": "Café_038",
+      "lat": 36.8022,
+      "lng": 10.2284,
+      "weight": 128,
+      "time_window": {
+        "start": "14:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o39",
+      "client": "Agence_039",
+      "lat": 36.8441,
+      "lng": 10.1964,
+      "weight": 208,
+      "time_window": {
+        "start": "07:00",
+        "end": "09:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o40",
+      "client": "Atelier_040",
+      "lat": 36.8222,
+      "lng": 10.1749,
+      "weight": 238,
+      "time_window": {
+        "start": "15:00",
+        "end": "18:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 10
+    },
+    {
+      "id": "o41",
+      "client": "Boutique_041",
+      "lat": 36.8013,
+      "lng": 10.2021,
+      "weight": 172,
+      "time_window": {
+        "start": "08:30",
+        "end": "10:30"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o42",
+      "client": "Agence_042",
+      "lat": 36.7557,
+      "lng": 10.2245,
+      "weight": 172,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 30
+    },
+    {
+      "id": "o43",
+      "client": "Clinique_043",
+      "lat": 36.8568,
+      "lng": 10.2703,
+      "weight": 86,
+      "time_window": {
+        "start": "16:00",
+        "end": "19:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o44",
+      "client": "Epicerie_044",
+      "lat": 36.7641,
+      "lng": 10.1723,
+      "weight": 191,
+      "time_window": {
+        "start": "13:00",
+        "end": "16:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 25
+    },
+    {
+      "id": "o45",
+      "client": "Supermarché_045",
+      "lat": 36.9119,
+      "lng": 10.1349,
+      "weight": 137,
+      "time_window": {
+        "start": "07:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 10
+    },
+    {
+      "id": "o46",
+      "client": "Ecole_046",
+      "lat": 36.7876,
+      "lng": 10.1029,
+      "weight": 245,
+      "time_window": {
+        "start": "08:00",
+        "end": "11:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 15
+    },
+    {
+      "id": "o47",
+      "client": "Café_047",
+      "lat": 36.83,
+      "lng": 10.1596,
+      "weight": 176,
+      "time_window": {
+        "start": "07:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o48",
+      "client": "Epicerie_048",
+      "lat": 36.7591,
+      "lng": 10.2027,
+      "weight": 87,
+      "time_window": {
+        "start": "08:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 10
+    },
+    {
+      "id": "o49",
+      "client": "Laboratoire_049",
+      "lat": 36.7748,
+      "lng": 10.18,
+      "weight": 73,
+      "time_window": {
+        "start": "10:00",
+        "end": "13:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o50",
+      "client": "Librairie_050",
+      "lat": 36.6869,
+      "lng": 10.132,
+      "weight": 84,
+      "time_window": {
+        "start": "16:00",
+        "end": "19:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 10
+    },
+    {
+      "id": "o51",
+      "client": "Supermarché_051",
+      "lat": 36.7123,
+      "lng": 10.0977,
+      "weight": 105,
+      "time_window": {
+        "start": "07:00",
+        "end": "09:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o52",
+      "client": "Studio_052",
+      "lat": 36.8024,
+      "lng": 10.2139,
+      "weight": 200,
+      "time_window": {
+        "start": "14:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 30
+    },
+    {
+      "id": "o53",
+      "client": "Studio_053",
+      "lat": 36.8077,
+      "lng": 10.202,
+      "weight": 29,
+      "time_window": {
+        "start": "08:00",
+        "end": "11:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 30
+    },
+    {
+      "id": "o54",
+      "client": "Café_054",
+      "lat": 36.7838,
+      "lng": 10.1151,
+      "weight": 113,
+      "time_window": {
+        "start": "07:00",
+        "end": "09:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 20
+    },
+    {
+      "id": "o55",
+      "client": "Ecole_055",
+      "lat": 36.85,
+      "lng": 10.1927,
+      "weight": 219,
+      "time_window": {
+        "start": "08:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 30
+    },
+    {
+      "id": "o56",
+      "client": "Pharmacie_056",
+      "lat": 36.6669,
+      "lng": 10.181,
+      "weight": 224,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 25
+    },
+    {
+      "id": "o57",
+      "client": "Usine_057",
+      "lat": 36.824,
+      "lng": 10.2932,
+      "weight": 225,
+      "time_window": {
+        "start": "11:00",
+        "end": "14:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 20
+    },
+    {
+      "id": "o58",
+      "client": "Restaurant_058",
+      "lat": 36.8975,
+      "lng": 10.2399,
+      "weight": 239,
+      "time_window": {
+        "start": "13:00",
+        "end": "16:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o59",
+      "client": "Café_059",
+      "lat": 36.9382,
+      "lng": 10.2247,
+      "weight": 230,
+      "time_window": {
+        "start": "12:00",
+        "end": "15:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 15
+    },
+    {
+      "id": "o60",
+      "client": "Entrepôt_060",
+      "lat": 36.812,
+      "lng": 10.2181,
+      "weight": 241,
+      "time_window": {
+        "start": "11:00",
+        "end": "14:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 60
+    },
+    {
+      "id": "o61",
+      "client": "Studio_061",
+      "lat": 36.9046,
+      "lng": 10.1633,
+      "weight": 104,
+      "time_window": {
+        "start": "13:00",
+        "end": "16:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 10
+    },
+    {
+      "id": "o62",
+      "client": "Restaurant_062",
+      "lat": 36.774,
+      "lng": 10.2148,
+      "weight": 47,
+      "time_window": {
+        "start": "10:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 20
+    },
+    {
+      "id": "o63",
+      "client": "Hôtel_063",
+      "lat": 36.7531,
+      "lng": 10.1743,
+      "weight": 118,
+      "time_window": {
+        "start": "16:00",
+        "end": "19:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 20
+    },
+    {
+      "id": "o64",
+      "client": "Studio_064",
+      "lat": 36.8261,
+      "lng": 10.2498,
+      "weight": 195,
+      "time_window": {
+        "start": "16:00",
+        "end": "19:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 20
+    },
+    {
+      "id": "o65",
+      "client": "Laboratoire_065",
+      "lat": 36.8663,
+      "lng": 10.0518,
+      "weight": 100,
+      "time_window": {
+        "start": "11:00",
+        "end": "14:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o66",
+      "client": "Clinique_066",
+      "lat": 36.7589,
+      "lng": 10.247,
+      "weight": 123,
+      "time_window": {
+        "start": "13:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 30
+    },
+    {
+      "id": "o67",
+      "client": "Pharmacie_067",
+      "lat": 36.8559,
+      "lng": 10.2295,
+      "weight": 177,
+      "time_window": {
+        "start": "13:00",
+        "end": "16:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 25
+    },
+    {
+      "id": "o68",
+      "client": "Bureau_068",
+      "lat": 36.8035,
+      "lng": 10.1719,
+      "weight": 130,
+      "time_window": {
+        "start": "10:00",
+        "end": "13:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 25
+    },
+    {
+      "id": "o69",
+      "client": "Librairie_069",
+      "lat": 36.8439,
+      "lng": 10.0838,
+      "weight": 223,
+      "time_window": {
+        "start": "16:00",
+        "end": "19:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o70",
+      "client": "Boutique_070",
+      "lat": 36.8482,
+      "lng": 10.2523,
+      "weight": 229,
+      "time_window": {
+        "start": "11:00",
+        "end": "14:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o71",
+      "client": "Supermarché_071",
+      "lat": 36.9207,
+      "lng": 10.1359,
+      "weight": 31,
+      "time_window": {
+        "start": "08:00",
+        "end": "11:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 25
+    },
+    {
+      "id": "o72",
+      "client": "Usine_072",
+      "lat": 36.7308,
+      "lng": 10.0915,
+      "weight": 246,
+      "time_window": {
+        "start": "14:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 45
+    },
+    {
+      "id": "o73",
+      "client": "Epicerie_073",
+      "lat": 36.7317,
+      "lng": 10.1553,
+      "weight": 187,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 60
+    },
+    {
+      "id": "o74",
+      "client": "Magasin_074",
+      "lat": 36.7035,
+      "lng": 10.2672,
+      "weight": 65,
+      "time_window": {
+        "start": "13:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 10
+    },
+    {
+      "id": "o75",
+      "client": "Marché_075",
+      "lat": 36.7576,
+      "lng": 10.052,
+      "weight": 54,
+      "time_window": {
+        "start": "08:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 45
+    },
+    {
+      "id": "o76",
+      "client": "Marché_076",
+      "lat": 36.7893,
+      "lng": 10.0949,
+      "weight": 176,
+      "time_window": {
+        "start": "11:00",
+        "end": "14:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 60
+    },
+    {
+      "id": "o77",
+      "client": "Librairie_077",
+      "lat": 36.7665,
+      "lng": 10.2419,
+      "weight": 135,
+      "time_window": {
+        "start": "08:30",
+        "end": "10:30"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 60
+    },
+    {
+      "id": "o78",
+      "client": "Librairie_078",
+      "lat": 36.9058,
+      "lng": 10.1832,
+      "weight": 180,
+      "time_window": {
+        "start": "16:00",
+        "end": "19:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 20
+    },
+    {
+      "id": "o79",
+      "client": "Entrepôt_079",
+      "lat": 36.847,
+      "lng": 10.0794,
+      "weight": 105,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 30
+    },
+    {
+      "id": "o80",
+      "client": "Epicerie_080",
+      "lat": 36.8216,
+      "lng": 10.2087,
+      "weight": 200,
+      "time_window": {
+        "start": "13:00",
+        "end": "16:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 10
+    },
+    {
+      "id": "o81",
+      "client": "Usine_081",
+      "lat": 36.8352,
+      "lng": 10.133,
+      "weight": 35,
+      "time_window": {
+        "start": "14:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 60
+    },
+    {
+      "id": "o82",
+      "client": "Agence_082",
+      "lat": 36.8722,
+      "lng": 10.0617,
+      "weight": 117,
+      "time_window": {
+        "start": "06:00",
+        "end": "08:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 10
+    },
+    {
+      "id": "o83",
+      "client": "Usine_083",
+      "lat": 36.7883,
+      "lng": 10.23,
+      "weight": 157,
+      "time_window": {
+        "start": "13:00",
+        "end": "16:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 25
+    },
+    {
+      "id": "o84",
+      "client": "Centre_084",
+      "lat": 36.8762,
+      "lng": 10.1951,
+      "weight": 106,
+      "time_window": {
+        "start": "06:00",
+        "end": "08:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 45
+    },
+    {
+      "id": "o85",
+      "client": "Laboratoire_085",
+      "lat": 36.8714,
+      "lng": 10.2199,
+      "weight": 156,
+      "time_window": {
+        "start": "08:00",
+        "end": "11:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 25
+    },
+    {
+      "id": "o86",
+      "client": "Usine_086",
+      "lat": 36.7504,
+      "lng": 10.0953,
+      "weight": 54,
+      "time_window": {
+        "start": "07:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 15
+    },
+    {
+      "id": "o87",
+      "client": "Marché_087",
+      "lat": 36.8261,
+      "lng": 10.2415,
+      "weight": 103,
+      "time_window": {
+        "start": "09:00",
+        "end": "11:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 60
+    },
+    {
+      "id": "o88",
+      "client": "Entrepôt_088",
+      "lat": 36.7729,
+      "lng": 10.2171,
+      "weight": 233,
+      "time_window": {
+        "start": "13:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 25
+    },
+    {
+      "id": "o89",
+      "client": "Magasin_089",
+      "lat": 36.8169,
+      "lng": 10.2664,
+      "weight": 186,
+      "time_window": {
+        "start": "12:00",
+        "end": "15:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 60
+    },
+    {
+      "id": "o90",
+      "client": "Magasin_090",
+      "lat": 36.8024,
+      "lng": 10.1966,
+      "weight": 71,
+      "time_window": {
+        "start": "06:00",
+        "end": "08:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 30
+    },
+    {
+      "id": "o91",
+      "client": "Agence_091",
+      "lat": 36.8291,
+      "lng": 10.1974,
+      "weight": 75,
+      "time_window": {
+        "start": "08:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 45
+    },
+    {
+      "id": "o92",
+      "client": "Pharmacie_092",
+      "lat": 36.8681,
+      "lng": 10.1791,
+      "weight": 99,
+      "time_window": {
+        "start": "08:00",
+        "end": "10:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 30
+    },
+    {
+      "id": "o93",
+      "client": "Centre_093",
+      "lat": 36.8151,
+      "lng": 10.2345,
+      "weight": 203,
+      "time_window": {
+        "start": "13:00",
+        "end": "16:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 10
+    },
+    {
+      "id": "o94",
+      "client": "Hôtel_094",
+      "lat": 36.7374,
+      "lng": 10.0758,
+      "weight": 198,
+      "time_window": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 60
+    },
+    {
+      "id": "o95",
+      "client": "Ecole_095",
+      "lat": 36.6941,
+      "lng": 10.1322,
+      "weight": 156,
+      "time_window": {
+        "start": "07:00",
+        "end": "09:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 45
+    },
+    {
+      "id": "o96",
+      "client": "Supermarché_096",
+      "lat": 36.8652,
+      "lng": 10.126,
+      "weight": 237,
+      "time_window": {
+        "start": "11:00",
+        "end": "14:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 60
+    },
+    {
+      "id": "o97",
+      "client": "Marché_097",
+      "lat": 36.8108,
+      "lng": 10.1109,
+      "weight": 201,
+      "time_window": {
+        "start": "12:00",
+        "end": "15:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 25
+    },
+    {
+      "id": "o98",
+      "client": "Laboratoire_098",
+      "lat": 36.8808,
+      "lng": 10.2187,
+      "weight": 226,
+      "time_window": {
+        "start": "10:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 25
+    },
+    {
+      "id": "o99",
+      "client": "Clinique_099",
+      "lat": 36.8507,
+      "lng": 10.0782,
+      "weight": 238,
+      "time_window": {
+        "start": "10:00",
+        "end": "12:00"
+      },
+      "requires_refrigeration": true,
+      "service_time_min": 60
+    },
+    {
+      "id": "o100",
+      "client": "Magasin_100",
+      "lat": 36.7869,
+      "lng": 10.2265,
+      "weight": 212,
+      "time_window": {
+        "start": "14:00",
+        "end": "17:00"
+      },
+      "requires_refrigeration": false,
+      "service_time_min": 30
+    }
+  ]
+}

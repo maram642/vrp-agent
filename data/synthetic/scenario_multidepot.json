@@ -1,0 +1,62 @@
+{
+  "scenario": "MDVRP",
+  "description": "Multi-Depot VRP — 2 dépôts, 30 commandes, 6 véhicules",
+  "depots": [
+    {
+      "id": "depot_0",
+      "name": "Dépôt Principal Tunis",
+      "lat": 36.8065,
+      "lng": 10.1815,
+      "opening_time": "07:00",
+      "closing_time": "20:00"
+    },
+    {
+      "id": "depot_1",
+      "name": "Dépôt Ariana",
+      "lat": 36.8625,
+      "lng": 10.1956,
+      "opening_time": "07:00",
+      "closing_time": "20:00"
+    }
+  ],
+  "vehicles": [
+    { "id": "v1", "name": "Camion D0-1", "capacity": 500, "type": "standard", "max_route_duration_h": 8 },
+    { "id": "v2", "name": "Camion D0-2", "capacity": 500, "type": "standard", "max_route_duration_h": 8 },
+    { "id": "v3", "name": "Camion D0-3", "capacity": 500, "type": "standard", "max_route_duration_h": 8 },
+    { "id": "v4", "name": "Camion D1-1", "capacity": 500, "type": "standard", "max_route_duration_h": 8 },
+    { "id": "v5", "name": "Camion D1-2", "capacity": 500, "type": "standard", "max_route_duration_h": 8 },
+    { "id": "v6", "name": "Camion D1-3", "capacity": 500, "type": "standard", "max_route_duration_h": 8 }
+  ],
+  "orders": [
+    { "id": "o1",  "client": "Client Bab Bhar",     "lat": 36.7992, "lng": 10.1800, "weight": 80  },
+    { "id": "o2",  "client": "Client Carthage",      "lat": 36.8580, "lng": 10.3240, "weight": 60  },
+    { "id": "o3",  "client": "Client La Goulette",   "lat": 36.8180, "lng": 10.3050, "weight": 110 },
+    { "id": "o4",  "client": "Client Le Bardo",      "lat": 36.8090, "lng": 10.1500, "weight": 90  },
+    { "id": "o5",  "client": "Client Manouba",       "lat": 36.8080, "lng": 10.0970, "weight": 70  },
+    { "id": "o6",  "client": "Client La Marsa",      "lat": 36.8780, "lng": 10.3250, "weight": 130 },
+    { "id": "o7",  "client": "Client Sidi Bou Said", "lat": 36.8680, "lng": 10.3420, "weight": 50  },
+    { "id": "o8",  "client": "Client Hammam Lif",    "lat": 36.7280, "lng": 10.3330, "weight": 95  },
+    { "id": "o9",  "client": "Client Ben Arous",     "lat": 36.7530, "lng": 10.2230, "weight": 75  },
+    { "id": "o10", "client": "Client Rades",         "lat": 36.7680, "lng": 10.2760, "weight": 85  },
+    { "id": "o11", "client": "Client Megrine",       "lat": 36.7620, "lng": 10.2320, "weight": 60  },
+    { "id": "o12", "client": "Client Ezzouhour",     "lat": 36.8340, "lng": 10.1420, "weight": 100 },
+    { "id": "o13", "client": "Client Cite Olympique","lat": 36.8200, "lng": 10.1680, "weight": 45  },
+    { "id": "o14", "client": "Client Montplaisir",   "lat": 36.8120, "lng": 10.1780, "weight": 120 },
+    { "id": "o15", "client": "Client Lac 1",         "lat": 36.8380, "lng": 10.2380, "weight": 55  },
+    { "id": "o16", "client": "Client Lac 2",         "lat": 36.8450, "lng": 10.2520, "weight": 90  },
+    { "id": "o17", "client": "Client Berges du Lac", "lat": 36.8500, "lng": 10.2600, "weight": 65  },
+    { "id": "o18", "client": "Client El Manar",      "lat": 36.8420, "lng": 10.1850, "weight": 110 },
+    { "id": "o19", "client": "Client Menzah 1",      "lat": 36.8520, "lng": 10.1720, "weight": 80  },
+    { "id": "o20", "client": "Client Menzah 5",      "lat": 36.8600, "lng": 10.1650, "weight": 70  },
+    { "id": "o21", "client": "Client Ennasr",        "lat": 36.8680, "lng": 10.1780, "weight": 95  },
+    { "id": "o22", "client": "Client Raoued",        "lat": 36.8920, "lng": 10.1920, "weight": 55  },
+    { "id": "o23", "client": "Client Ain Zaghouan",  "lat": 36.8760, "lng": 10.1560, "weight": 85  },
+    { "id": "o24", "client": "Client Soukra",        "lat": 36.8820, "lng": 10.1680, "weight": 60  },
+    { "id": "o25", "client": "Client Cite Mahrajene","lat": 36.8280, "lng": 10.1820, "weight": 120 },
+    { "id": "o26", "client": "Client Mutuelle Ville","lat": 36.8180, "lng": 10.1740, "weight": 75  },
+    { "id": "o27", "client": "Client Belvédère",     "lat": 36.8150, "lng": 10.1820, "weight": 90  },
+    { "id": "o28", "client": "Client Bab El Khadra", "lat": 36.8100, "lng": 10.1700, "weight": 50  },
+    { "id": "o29", "client": "Client Medina",        "lat": 36.8000, "lng": 10.1700, "weight": 110 },
+    { "id": "o30", "client": "Client Halfaouine",    "lat": 36.8050, "lng": 10.1750, "weight": 80  }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "scenario": "CVRP_SIMPLE",
+  "description": "Scénario de base - Capacitated VRP sans contraintes complexes",
+  "depot": {
+    "id": "depot_0",
+    "name": "Entrepôt Central Tunis",
+    "lat": 36.8065,
+    "lng": 10.1815
+  },
+  "vehicles": [
+    {
+      "id": "v1",
+      "name": "Camion 1",
+      "capacity": 500,
+      "type": "standard"
+    },
+    {
+      "id": "v2",
+      "name": "Camion 2",
+      "capacity": 500,
+      "type": "standard"
+    },
+    {
+      "id": "v3",
+      "name": "Camion 3",
+      "capacity": 500,
+      "type": "standard"
+    }
+  ],
+  "orders": [
+    { "id": "o1",  "client": "Client A",  "lat": 36.8190, "lng": 10.1660, "weight": 80  },
+    { "id": "o2",  "client": "Client B",  "lat": 36.8320, "lng": 10.1720, "weight": 60  },
+    { "id": "o3",  "client": "Client C",  "lat": 36.8450, "lng": 10.1850, "weight": 110 },
+    { "id": "o4",  "client": "Client D",  "lat": 36.8100, "lng": 10.2000, "weight": 90  },
+    { "id": "o5",  "client": "Client E",  "lat": 36.7980, "lng": 10.1900, "weight": 70  },
+    { "id": "o6",  "client": "Client F",  "lat": 36.7850, "lng": 10.1750, "weight": 130 },
+    { "id": "o7",  "client": "Client G",  "lat": 36.7720, "lng": 10.1600, "weight": 50  },
+    { "id": "o8",  "client": "Client H",  "lat": 36.7900, "lng": 10.1500, "weight": 95  },
+    { "id": "o9",  "client": "Client I",  "lat": 36.8200, "lng": 10.1400, "weight": 75  },
+    { "id": "o10", "client": "Client J",  "lat": 36.8350, "lng": 10.1550, "weight": 85  },
+    { "id": "o11", "client": "Client K",  "lat": 36.8500, "lng": 10.2100, "weight": 60  },
+    { "id": "o12", "client": "Client L",  "lat": 36.8600, "lng": 10.1950, "weight": 100 },
+    { "id": "o13", "client": "Client M",  "lat": 36.7650, "lng": 10.2050, "weight": 45  },
+    { "id": "o14", "client": "Client N",  "lat": 36.7750, "lng": 10.2200, "weight": 120 },
+    { "id": "o15", "client": "Client O",  "lat": 36.8000, "lng": 10.2300, "weight": 55  }
+  ]
+}
