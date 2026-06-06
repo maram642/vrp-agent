@@ -1,19 +1,4 @@
-"""
-interface/streamlit_app.py
----------------------------
-Interface graphique du VRP Agent.
 
-Usage :
-    streamlit run interface/streamlit_app.py
-
-Fonctionnalités :
-    - Upload de fichier JSON ou sélection d'un scénario demo
-    - Saisie de contraintes en langage naturel (LLM parser)
-    - Lancement de l'optimisation
-    - Visualisation des résultats (carte + tableau)
-    - Explication LLM de la solution
-    - Export JSON / CSV
-"""
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

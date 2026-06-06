@@ -1,11 +1,4 @@
-"""
-interface/llm_explainer.py
----------------------------
-Génère une explication en langage naturel de la solution VRP.
 
-Supporte Groq (gratuit) et Claude (Anthropic).
-Fallback automatique sur explication règle-based si pas de clé API.
-"""
 
 import os
 import requests

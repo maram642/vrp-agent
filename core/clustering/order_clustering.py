@@ -1,26 +1,4 @@
-"""
-core/clustering/order_clustering.py
---------------------------------------
-Découpe une liste de commandes en N clusters géographiques
-via KMeans (scikit-learn).
 
-Responsabilité unique :
-    Recevoir une liste de commandes + nb_clusters
-    → retourner N groupes de commandes
-
-Pourquoi KMeans ?
-    Les commandes proches géographiquement forment
-    naturellement de bonnes tournées locales.
-    KMeans minimise la distance intra-cluster.
-
-Utilisé par :
-    strategy_selector._solve_with_clustering()
-
-Règle clustering (définie dans vrp_classifier) :
-    < 500    commandes → pas appelé (VRP direct)
-    500-1000 commandes → appelé (recommandé)
-    > 1000   commandes → appelé (obligatoire)
-"""
 
 import numpy as np
 from sklearn.cluster import KMeans
@@ -35,30 +13,7 @@ class ClusteringError(Exception):
 # ─── Fonction principale ──────────────────────────────────────────────────────
 
 def cluster_orders(orders: list, nb_clusters: int) -> list:
-    """
-    Découpe les commandes en N clusters géographiques via KMeans.
-
-    Parameters
-    ----------
-    orders      : liste de commandes (format interne cleaner)
-                  chaque commande doit avoir "lat" et "lng"
-    nb_clusters : nombre de clusters souhaités
-                  calculé par vrp_classifier._decide_clustering()
-
-    Returns
-    -------
-    list de N listes de commandes
-    Exemple :
-        [
-            [order1, order5, order8, ...],   # cluster 0
-            [order2, order4, order9, ...],   # cluster 1
-            ...
-        ]
-
-    Raises
-    ------
-    ClusteringError : si les données sont insuffisantes
-    """
+   
 
     # ── Validations ───────────────────────────────────────────────────────────
     if not orders:

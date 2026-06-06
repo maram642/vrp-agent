@@ -1,27 +1,4 @@
-"""
-core/classification/vrp_classifier.py
----------------------------------------
-Scanne un dataset propre et retourne un ProblemProfile —
-l'ensemble complet des flags actifs dans les données.
 
-Principe fondamental :
-    Le classifier ne choisit PAS un type unique (CVRP, VRPTW...).
-    Ces types ne sont PAS des solvers différents.
-    Ce sont des configurations d'un même problème VRP.
-
-    Le classifier répond à UNE seule question :
-        "Quelles contraintes sont présentes dans ces données ?"
-
-    Ensuite :
-        strategy_selector  → lit le profil, gère le clustering
-        constraint_manager → lit le profil, construit les blocs OR-Tools
-        vrp_solver         → UN SEUL solver, reçoit les contraintes
-
-Règle clustering :
-    < 500    commandes → VRP direct
-    500-1000 commandes → clustering recommandé
-    > 1000   commandes → clustering obligatoire
-"""
 
 # ─── Seuils clustering ────────────────────────────────────────────────────────
 
@@ -32,15 +9,7 @@ CLUSTERING_MANDATORY   = 1000
 # ─── Profil du problème ───────────────────────────────────────────────────────
 
 class ProblemProfile:
-    """
-    Résultat du classifier.
-    Contient TOUS les flags actifs dans les données.
-
-    Transmis à :
-        strategy_selector  → décide clustering ou direct
-        constraint_manager → construit les contraintes OR-Tools
-        vrp_solver         → reçoit les contraintes construites
-    """
+   
 
     def __init__(self, flags: dict, clustering: dict, meta: dict):
         self.flags      = flags
@@ -84,11 +53,11 @@ class ProblemProfile:
         return self.clustering["nb_clusters"]
 
     def active_flags(self) -> list:
-        """Retourne uniquement les flags True."""
+        
         return [k for k, v in self.flags.items() if v is True]
 
     def summary(self) -> str:
-        """Résumé en une ligne pour les logs."""
+      
         active = self.active_flags()
         clustering_info = (
             f"clustering={self.clustering['nb_clusters']} clusters"
@@ -139,15 +108,12 @@ class ProblemProfile:
 # ─── Fonctions de détection ───────────────────────────────────────────────────
 
 def _detect_time_windows(orders: list) -> bool:
-    """True si au moins une commande a un créneau horaire."""
+  
     return any(o.get("time_window") is not None for o in orders)
 
 
 def _detect_pickup_delivery(orders: list) -> bool:
-    """
-    True si au moins une commande a un point de ramassage distinct du dépôt.
-    Ex: enlever chez client A, livrer chez client B.
-    """
+
     return any("pickup_lat" in o or "pickup" in o for o in orders)
 
 
@@ -155,10 +121,7 @@ def _detect_pickup_delivery(orders: list) -> bool:
 
 
 def _detect_multi_depot(dataset: dict) -> bool:
-    """
-    True si le dataset contient plusieurs dépôts.
-    Addinn peut envoyer "depots": [...] au lieu d'un seul "depot".
-    """
+  
     return (
         isinstance(dataset.get("depots"), list)
         and len(dataset["depots"]) > 1
@@ -166,17 +129,17 @@ def _detect_multi_depot(dataset: dict) -> bool:
 
 
 def _detect_refrigeration(orders: list) -> bool:
-    """True si au moins une commande nécessite un véhicule frigorifique."""
+   
     return any(o.get("requires_refrigeration", False) for o in orders)
 
 
 def _detect_priorities(orders: list) -> bool:
-    """True si au moins une commande a un champ priorité."""
+    
     return any("priority" in o for o in orders)
 
 
 def _detect_service_times(orders: list) -> bool:
-    """True si au moins une commande a un temps de service > 0."""
+   
     return any(o.get("service_time_min", 0) > 0 for o in orders)
 
 
@@ -185,7 +148,7 @@ def _detect_vehicle_types(vehicles: list) -> set:
 
 
 def _detect_overloaded(orders: list, vehicles: list) -> list:
-    """Commandes impossibles à livrer (poids > capacité max véhicule)."""
+   
     max_cap = max(v["capacity"] for v in vehicles)
     return [o["id"] for o in orders if o["weight"] > max_cap]
 
@@ -193,16 +156,7 @@ def _detect_overloaded(orders: list, vehicles: list) -> list:
 # ─── Décision clustering ──────────────────────────────────────────────────────
 
 def _decide_clustering(nb_orders: int, nb_vehicles: int) -> dict:
-    """
-    Décide si KMeans est nécessaire avant résolution OR-Tools.
-
-        < 500    → VRP direct
-        500-1000 → clustering recommandé
-        > 1000   → clustering obligatoire
-
-    Nb clusters ≈ nb_orders // 50 (vise ~50 commandes par cluster)
-    plafonné au nombre de véhicules disponibles.
-    """
+   
     if nb_orders < CLUSTERING_RECOMMENDED:
         return {
             "needed"     : False,
@@ -229,25 +183,7 @@ def _decide_clustering(nb_orders: int, nb_vehicles: int) -> dict:
 # ─── Fonction principale ──────────────────────────────────────────────────────
 
 def classify(dataset: dict) -> ProblemProfile:
-    """
-    Scanne un dataset propre et retourne un ProblemProfile complet.
-
-    Le classifier coche TOUS les flags présents dans les données.
-    Il ne choisit PAS un type unique — il laisse
-    strategy_selector et constraint_manager décider quoi faire.
-
-    Parameters
-    ----------
-    dataset : dict
-        Sorti de cleaner.load_and_clean().
-
-    Returns
-    -------
-    ProblemProfile
-        .flags      → tous les booléens détectés
-        .clustering → { needed, mode, nb_clusters }
-        .meta       → { nb_orders, nb_vehicles, vehicle_types, ... }
-    """
+    
 
     vehicles = dataset["vehicles"]
     orders   = dataset["orders"]

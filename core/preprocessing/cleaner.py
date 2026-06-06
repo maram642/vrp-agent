@@ -1,9 +1,4 @@
-"""
-core/preprocessing/cleaner.py
--------------------------------
-Charge et valide un fichier JSON de scénario VRP.
-Retourne un dataset propre prêt pour le reste du pipeline.
-"""
+
 
 import json
 import math
@@ -80,10 +75,7 @@ def _clean_depot(depot: dict) -> dict:
 
 
 def _clean_depots(raw: dict) -> list:
-    """
-    Valide et normalise la liste des dépôts si présente (multi-dépôt).
-    Retourne None si pas de multi-dépôt (clé absente ou moins de 2 dépôts).
-    """
+    
     raw_depots = raw.get("depots")
 
     if not isinstance(raw_depots, list) or len(raw_depots) < 2:
@@ -156,7 +148,7 @@ def _clean_vehicles(vehicles: list) -> list:
 # ─── Validation commandes ─────────────────────────────────────────────────────
 
 def _clean_orders(orders: list, depot: dict) -> list:
-    """Valide, normalise et enrichit les commandes (distance au dépôt)."""
+    
     if not orders:
         raise CleanerError("[orders] La liste des commandes est vide.")
 
@@ -246,25 +238,7 @@ def _global_checks(dataset: dict):
 # ─── Fonction principale ──────────────────────────────────────────────────────
 
 def load_and_clean(filepath: str) -> dict:
-    """
-    Charge un fichier JSON de scénario VRP, valide toutes les données
-    et retourne un dataset propre.
-
-    Parameters
-    ----------
-    filepath : str
-        Chemin vers le fichier JSON (ex: "data/synthetic/scenario_simple.json")
-
-    Returns
-    -------
-    dict avec les clés : scenario, depot, vehicles, orders, stats
-
-    Raises
-    ------
-    FileNotFoundError  : si le fichier n'existe pas
-    json.JSONDecodeError : si le JSON est malformé
-    CleanerError       : si les données sont invalides
-    """
+   
 
     path = Path(filepath)
 

@@ -1,28 +1,4 @@
-"""
-main.py
---------
-Orchestrateur principal du pipeline VRP Agent.
 
-Pipeline :
-    1. Charger et nettoyer les données
-    2. Parser les contraintes LLM (optionnel)
-    3. Classifier le problème (ProblemProfile)
-    4. Résoudre (clustering + OR-Tools)
-    5. Exporter la solution (JSON + CSV)
-    6. Expliquer la solution (LLM)
-
-Usage CLI :
-    python main.py --file data/synthetic/scenario_simple.json
-    python main.py --file data/synthetic/scenario_timewindows.json
-    python main.py --file data/synthetic/scenario_multidepot.json
-    python main.py --file data/synthetic/scenario_large.json
-    python main.py --file data/synthetic/scenario_simple.json --constraints "livrer avant 14h"
-    python main.py --file data/synthetic/scenario_simple.json --no-export --no-explain
-
-Import depuis un autre module :
-    from main import run_pipeline
-    result = run_pipeline("data/synthetic/scenario_simple.json")
-"""
 
 import argparse
 import sys
@@ -42,20 +18,7 @@ def run_pipeline(
     export              : bool = True,
     verbose             : bool = True,
 ) -> dict:
-    """
-    Lance le pipeline VRP complet.
-
-    Parameters
-    ----------
-    filepath            : chemin vers le fichier JSON de données
-    natural_constraints : contraintes en langage naturel (optionnel)
-    export              : exporter JSON/CSV (défaut True)
-    verbose             : afficher explication LLM (défaut True)
-
-    Returns
-    -------
-    dict { dataset, profile, result, summary }
-    """
+  
 
     SEP  = "─" * 56
     SEP2 = "═" * 56

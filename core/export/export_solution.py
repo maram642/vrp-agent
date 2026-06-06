@@ -1,19 +1,4 @@
-"""
-core/export/export_solution.py
---------------------------------
-Transforme le StrategyResult (ou un dict solution)
-en fichiers exploitables :
-    → data/output/routes_solution.json  (solution complète)
-    → data/output/routes_solution.csv   (tableau simplifié)
 
-Responsabilité unique :
-    Prendre la solution brute d'OR-Tools
-    et la formater proprement pour :
-        - l'interface Streamlit
-        - le LLM explainer
-        - Addinn (export API)
-        - l'utilisateur final
-"""
 
 import json
 import csv
@@ -41,18 +26,7 @@ def _minutes_to_hhmm(minutes: int) -> str:
 # ─── Construction du document JSON complet ───────────────────────────────────
 
 def _build_json_document(result: dict, dataset: dict, profile) -> dict:
-    """
-    Construit le document JSON complet de la solution.
 
-    Structure :
-        {
-            meta        : infos générales
-            summary     : statistiques globales
-            flags       : contraintes actives
-            routes      : détail de chaque tournée
-            unserved    : commandes non livrées
-        }
-    """
 
     # ── Meta ──────────────────────────────────────────────────────────────────
     meta = {
@@ -152,20 +126,7 @@ def export_json(
     profile ,
     filename: str = "routes_solution.json",
 ) -> Path:
-    """
-    Exporte la solution complète en JSON.
-
-    Parameters
-    ----------
-    result   : dict sorti de vrp_solver.solve()
-    dataset  : dict du dataset (ou cluster)
-    profile  : ProblemProfile sorti de vrp_classifier.classify()
-    filename : nom du fichier de sortie
-
-    Returns
-    -------
-    Path du fichier créé
-    """
+  
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     filepath = OUTPUT_DIR / filename
 
@@ -185,15 +146,7 @@ def export_csv(
     dataset : dict,
     filename: str = "routes_solution.csv",
 ) -> Path:
-    """
-    Exporte un tableau simplifié en CSV.
-    Une ligne par stop.
 
-    Colonnes :
-        route_id, vehicle_id, vehicle_type, sequence,
-        order_id, client, lat, lng, weight_kg,
-        arrival_time, route_distance_km
-    """
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     filepath = OUTPUT_DIR / filename
 
@@ -236,19 +189,7 @@ def export_solution(
     dataset : dict,
     profile ,
 ) -> dict:
-    """
-    Exporte la solution en JSON et CSV.
-
-    Parameters
-    ----------
-    result  : dict sorti de vrp_solver.solve()
-    dataset : dict du dataset complet
-    profile : ProblemProfile sorti de vrp_classifier.classify()
-
-    Returns
-    -------
-    dict { json_path, csv_path, summary }
-    """
+ 
     print(f"\n{'─'*52}")
     print(f"  💾 Export de la solution")
     print(f"{'─'*52}")

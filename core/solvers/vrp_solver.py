@@ -1,18 +1,5 @@
-"""
-core/solvers/vrp_solver.py
-----------------------------
-Solver VRP universel basé sur Google OR-Tools.
 
-Correction multi-dépôt :
-    starts/ends utilisent config.depot_indices — les vrais indices
-    des dépôts dans la matrice de distances.
 
-    Dépôt unique  : depot_indices = [0]
-    Multi-dépôt   : depot_indices = [0, 1, 2, ...]
-
-    Chaque véhicule est assigné à un dépôt réel.
-    Les callbacks tiennent compte du décalage nb_depots.
-"""
 
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
@@ -44,11 +31,7 @@ def _make_distance_callback(config, manager):
 
 
 def _make_demand_callback(config, manager, nb_depots: int):
-    """
-    Demande (poids) par noeud.
-    Les dépôts (index 0..nb_depots-1) ont demande = 0.
-    Les commandes (index nb_depots..N) ont leur poids.
-    """
+   
     demands = [0] * nb_depots + [int(o["weight"]) for o in config.orders]
 
     def demand_callback(from_index):
@@ -59,10 +42,7 @@ def _make_demand_callback(config, manager, nb_depots: int):
 
 
 def _make_time_callback(config, manager, nb_depots: int):
-    """
-    Temps de trajet + service.
-    Tient compte du décalage nb_depots dans service_times.
-    """
+   
     matrix        = config.distance_matrix
     service_times = config.service_times
     speed_kmh     = 30.0
@@ -80,17 +60,7 @@ def _make_time_callback(config, manager, nb_depots: int):
 # ─── Construction du modèle ───────────────────────────────────────────────────
 
 def _build_model(config):
-    """
-    Construit le modèle OR-Tools.
-
-    Multi-dépôt :
-        starts/ends = vrais indices des dépôts dans la matrice
-        chaque véhicule est assigné à un dépôt réel
-        les callbacks tiennent compte du décalage nb_depots
-
-    Dépôt unique :
-        comportement classique, nb_depots = 1
-    """
+ 
     nb_orders   = len(config.orders)
     nb_vehicles = len(config.vehicles)
     nb_depots   = len(config.depot_indices)

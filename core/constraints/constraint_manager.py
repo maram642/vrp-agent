@@ -1,27 +1,4 @@
-"""
-core/constraints/constraint_manager.py
------------------------------------------
-Construit toutes les contraintes OR-Tools selon le ProblemProfile.
 
-Principe fondamental :
-    Le constraint_manager définit des RÈGLES, pas des affectations.
-    Il dit ce qui est AUTORISÉ — OR-Tools décide la solution optimale.
-
-Correction multi-dépôt :
-    La matrice de distances a une structure différente selon le cas :
-
-    Dépôt unique :
-        index 0       = dépôt
-        index 1..N    = commandes
-
-    Multi-dépôt :
-        index 0..D-1  = dépôts  ← CRUCIAL : dépôts en premier
-        index D..D+N  = commandes
-        → starts/ends dans vrp_solver pointent vers les vrais indices
-
-Types frigorifiques :
-    Lus depuis constraints_config.json → générique.
-"""
 
 import json
 import math
@@ -55,15 +32,7 @@ class ConstraintError(Exception):
 # ─── Conteneur ────────────────────────────────────────────────────────────────
 
 class ConstraintConfig:
-    """
-    Contient toutes les contraintes construites pour un cluster.
-    Transmis directement à vrp_solver.solve().
-
-    Attribut clé — depot_indices :
-        Dépôt unique  : [0]
-        Multi-dépôt   : [0, 1, 2, ...]  ← indices réels dans la matrice
-        vrp_solver utilise ces indices pour starts/ends des véhicules.
-    """
+  
 
     def __init__(self):
         self.vehicles        = []
@@ -124,12 +93,7 @@ def _time_to_minutes(t: str) -> int:
 # ─── Matrice de distances ─────────────────────────────────────────────────────
 
 def _build_distance_matrix(depot: dict, orders: list) -> list:
-    """
-    Dépôt unique.
-    Structure :
-        index 0    = dépôt
-        index 1..N = commandes
-    """
+    
     points = [(depot["lat"], depot["lng"])] + [
         (o["lat"], o["lng"]) for o in orders
     ]
@@ -146,17 +110,7 @@ def _build_distance_matrix(depot: dict, orders: list) -> list:
 
 
 def _build_distance_matrix_multi_depot(depots: list, orders: list) -> list:
-    """
-    Multi-dépôt.
-    Structure CRUCIALE :
-        index 0..D-1   = dépôts   ← en premier
-        index D..D+N-1 = commandes
 
-    Pourquoi dépôts en premier ?
-        OR-Tools utilise starts = [0, 1, 2, ...] pour les dépôts.
-        Si les commandes étaient avant, starts pointeraient
-        vers des commandes au lieu des dépôts → bug silencieux.
-    """
     depot_points = [(d["lat"], d["lng"]) for d in depots]
     order_points = [(o["lat"], o["lng"]) for o in orders]
     points       = depot_points + order_points   # dépôts AVANT commandes
@@ -225,10 +179,7 @@ def _build_time_windows_multi_depot(depots: list, orders: list) -> list:
 
 
 def _build_service_times(orders: list, nb_depots: int = 1) -> list:
-    """
-    Temps de service. Dépôts = 0, commandes = leur valeur.
-    nb_depots : nombre de dépôts (1 par défaut, D en multi-dépôt).
-    """
+    
     return [0] * nb_depots + [int(o.get("service_time_min", 0)) for o in orders]
 
 
@@ -237,11 +188,7 @@ def _build_vehicle_allowed(
     orders    : list,
     nb_depots : int = 1,
 ) -> dict:
-    """
-    Règles d'autorisation véhicule → commande.
-    node_idx commence à nb_depots (pas 1) car les dépôts occupent
-    les premiers indices en multi-dépôt.
-    """
+    
     fridge_indices = [
         i for i, v in enumerate(vehicles)
         if v.get("type", "standard") in FRIDGE_TYPES
@@ -282,12 +229,7 @@ def _build_priorities(orders: list) -> Optional[dict]:
 # ─── Fonction principale ──────────────────────────────────────────────────────
 
 def build_constraints(profile, dataset: dict) -> ConstraintConfig:
-    """
-    Construit toutes les contraintes pour un cluster.
-
-    La logique if/else sur is_multi_depot garantit que
-    la matrice a toujours la bonne structure.
-    """
+    
     vehicles = dataset["vehicles"]
     orders   = dataset["orders"]
 

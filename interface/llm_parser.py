@@ -1,22 +1,4 @@
-"""
-interface/llm_parser.py
-------------------------
-Transforme des contraintes en langage naturel en flags
-compréhensibles par le pipeline VRP.
 
-Priorité :
-    1. Groq (gratuit — llama-3.3-70b-versatile)
-    2. Claude (Anthropic — fallback si ANTHROPIC_API_KEY présent)
-    3. Mock règle-based (sans clé API — toujours disponible)
-
-Exemples :
-    "livrer les produits frais avant 14h"
-    → { "has_time_windows": True, "needs_refrigeration": True,
-        "delivery_before": "14:00" }
-
-    "tous les camions doivent finir avant 18h"
-    → { "max_route_duration_h": 18.0 }
-"""
 
 import json
 import os
@@ -132,10 +114,7 @@ def _call_claude(text: str) -> dict:
 # ─── Fallback règle-based ─────────────────────────────────────────────────────
 
 def _parse_mock(text: str) -> dict:
-    """
-    Détecte les contraintes avec des règles simples, sans API.
-    Toujours disponible.
-    """
+   
     t     = text.lower()
     flags = {}
 
@@ -190,10 +169,7 @@ def _apply_flags(flags: dict, dataset: dict) -> None:
 # ─── Fonction principale ──────────────────────────────────────────────────────
 
 def parse_constraints(text: str, dataset: dict) -> dict:
-    """
-    Analyse des contraintes en langage naturel et les applique au dataset.
-    Ordre : Groq → Claude → Mock.
-    """
+  
     print(f"\n  🤖 Parser : \"{text[:60]}{'...' if len(text)>60 else ''}\"")
 
     for call, label in [(_call_groq, "Groq"), (_call_claude, "Claude")]:

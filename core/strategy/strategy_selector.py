@@ -1,19 +1,4 @@
-"""
-core/strategy/strategy_selector.py
--------------------------------------
-Orchestre la résolution VRP selon le ProblemProfile.
 
-Responsabilité unique :
-    → si nb_orders < 500  : appelle vrp_solver directement
-    → si nb_orders >= 500 : découpe en clusters puis appelle
-                            vrp_solver sur chaque cluster
-
-Correction appliquée :
-    Chaque véhicule physique est assigné à UN SEUL cluster.
-    Distribution proportionnelle par type (générique — aucun
-    type hardcodé, fonctionne avec n'importe quel dataset).
-    constraint_manager gère les règles internes au cluster.
-"""
 
 from collections import defaultdict
 
@@ -72,26 +57,7 @@ def _assign_vehicles_to_cluster(
     cluster_idx  : int,
     nb_clusters  : int,
 ) -> list:
-    """
-    Distribue les véhicules entre les clusters proportionnellement par type.
-
-    Chaque véhicule physique appartient à UN SEUL cluster.
-    constraint_manager gère ensuite les règles d'affectation
-    (frigo, capacité, priorité) à l'intérieur du cluster.
-
-    Générique : fonctionne avec n'importe quel type de véhicule.
-    Aucun type hardcodé — prend les types présents dans les données.
-
-    Exemples :
-        dataset avec frigo + standard + heavy
-        → distribue chaque type équitablement entre les clusters
-
-        dataset avec seulement "electric"
-        → distribue les electrics entre les clusters
-
-        dataset avec types Addinn inconnus ("camion_18t", "fourgon")
-        → même logique, aucun changement
-    """
+ 
 
     # grouper par type dynamiquement — aucun type supposé
     by_type = defaultdict(list)
@@ -182,18 +148,7 @@ def _solve_with_clustering(dataset: dict, profile) -> StrategyResult:
 # ─── Fonction principale ──────────────────────────────────────────────────────
 
 def run(dataset: dict, profile) -> StrategyResult:
-    """
-    Point d'entrée du strategy_selector.
 
-    Parameters
-    ----------
-    dataset : dict — sorti de cleaner.load_and_clean()
-    profile : ProblemProfile — sorti de vrp_classifier.classify()
-
-    Returns
-    -------
-    StrategyResult — toutes les routes + stats globales
-    """
     nb_orders = profile.meta["nb_orders"]
 
     print(f"\n{'─'*54}")
