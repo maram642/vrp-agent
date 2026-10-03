@@ -1,5 +1,5 @@
 # 🚛 VRP Agent — Intelligent Route Planning in a TMS
-AI-powered vehicle routing system combining Google OR-Tools, KMeans clustering, and LLMs for intelligent constraint-aware route optimization.
+
 
 > Final Year Project (PFA) — ENET'Com Sfax, 2026  
 > **Maram Boughammoura** · Data Engineering & Decisional Making  Systems  
